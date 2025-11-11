@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   namespace :api do
-    get "devices/create"
+    resources :devices, only: [:create]
   end
+
   get "devices/index"
+
   resource :session
   # resources :passwords, param: :token
 
