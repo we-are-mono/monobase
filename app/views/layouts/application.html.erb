@@ -24,7 +24,36 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-28">
+    <nav class="bg-gray-800">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex h-16 items-center justify-between">
+          <div class="flex items-center">
+            <div class="flex-shrink-0">
+              <%= link_to root_path, class: "text-white" do %>
+                <span class="text-xl font-semibold">Monobase</span>
+              <% end %>
+            </div>
+            <div class="hidden md:block">
+            <% if authenticated? %>
+              <div class="ml-10 flex items-baseline space-x-4">
+                <%= link_to "Devices", devices_index_path, class: "rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-800 hover:text-white transition-colors" %>
+              </div>
+            <% end %>
+            </div>
+          </div>
+          <div class="hidden md:block">
+            <div class="ml-4 flex items-center md:ml-6">
+              <% if authenticated? %>
+                <%= button_to "Sign out", session_path, method: :delete, class: "rounded-md bg-gray-800 px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition-colors" %>
+              <% else %>
+                <%= link_to "Sign in", new_session_path, class: "rounded-md bg-gray-800 px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition-colors" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <%= yield %>
     </main>
   </body>
