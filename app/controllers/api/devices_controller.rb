@@ -14,6 +14,12 @@ class Api::DevicesController < ActionController::API
     end
   end
 
+  def show
+    id = params.extract_value(:id)
+    @device = Device.where(qr1: id).or(Device.where(qr2: id))
+    render json: @device
+  end
+
   private
 
   def device_params

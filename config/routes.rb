@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   namespace :api do
-    resources :devices, only: [ :create ]
+    resources :devices, only: [ :show, :create ]
   end
 
   get "devices/index"
