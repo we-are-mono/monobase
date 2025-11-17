@@ -20,8 +20,8 @@ class Api::DevicesController < ActionController::API
   end
 
   def show
-    id = params.extract_value(:id)
-    @device = Device.where(qr1: id).or(Device.where(qr2: id))
+    serial = params.extract_value(:id)
+    @device = Device.where(serial_number: serial)
     render json: @device
   end
 
