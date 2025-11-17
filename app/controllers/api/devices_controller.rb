@@ -2,6 +2,11 @@ class Api::DevicesController < ActionController::API
   before_action :authenticate_with_api_key!
 
   def create
+    if !params[:num_macs]
+      render json: { errors: [ "Param num_macs must be present" ] }
+      return
+    end
+
     ActiveRecord::Base.transaction do
       @device = Device.new(device_params)
       if @device.save

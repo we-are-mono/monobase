@@ -3,12 +3,23 @@ class Device < ApplicationRecord
 
    validates :qr1, presence: true
    validates :qr2, presence: true
-   validates :product_group, inclusion: %w[R S A]
-   validates :product_line, inclusion: (1..99).map { |d| d.to_s.rjust(2, "0") }
-   validates :hardware_revision, inclusion: "A".."Z"
    validates :pcb_version, inclusion: 1..99
+   validates :product_line, inclusion: (1..99).map { |d| d.to_s.rjust(2, "0") }
+   validates :product_group, inclusion: %w[R S A]
+   validates :hardware_revision, inclusion: "A".."Z"
+   validate :unique_qr1_and_qr2
 
-   before_save :generate_serial_number
+   before_create :generate_serial_number
+
+   def unique_qr1_and_qr2
+      puts("Looking for ", qr1, " and ", qr2)
+      exists = Device.where("(qr1 = :qr1 AND qr2 = :qr2) OR (qr1 = :qr2 AND qr2 = :qr1)", qr1: qr1, qr2: qr2).count > 0
+
+      if exists
+         errors.add(:qr1, "The qr1 and qr2 combination must be unique (one already exists)")
+         errors.add(:qr2, "The qr1 and qr2 combination must be unique (one already exists)")
+      end
+   end
 
    def generate_serial_number
       if !self.serial_number
