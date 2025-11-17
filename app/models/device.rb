@@ -1,6 +1,8 @@
 class Device < ApplicationRecord
    has_many :macs
 
+   validates :qr1, presence: true
+   validates :qr2, presence: true
    validates :product_group, inclusion: %w[R S A]
    validates :product_line, inclusion: (1..99).map { |d| d.to_s.rjust(2, "0") }
    validates :hardware_revision, inclusion: "A".."Z"
