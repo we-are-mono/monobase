@@ -1,11 +1,16 @@
 class Api::DevicesController < ActionController::API
   before_action :authenticate_with_api_key!
 
+  rescue_from ActionController::ParameterMissing do |e|
+    render json: { error: e.message }, status: :bad_request
+  end
+
+  rescue_from ActiveRecord::RecordNotFound do |e|
+    render json: { error: "Not found" }, status: :not_found
+  end
+
   def create
-    if !params[:num_macs]
-      render json: { errors: [ "Param num_macs must be present" ] }
-      return
-    end
+    params.expect([ :num_macs ])
 
     ActiveRecord::Base.transaction do
       @device = Device.new(device_params)
@@ -22,6 +27,15 @@ class Api::DevicesController < ActionController::API
   def show
     serial = params.extract_value(:id)
     @device = Device.where(serial_number: serial)
+    render json: @device
+  end
+
+  def register
+    params.expect([ :device_id, :qr1, :qr2 ])
+    serial = params[:device_id]
+    qr1, qr2 = params[:qr1], params[:qr2]
+    @device = Device.find_by!(serial_number: serial)
+    @device.update(qr1: qr1, qr2: qr2)
     render json: @device
   end
 

@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   namespace :api do
-    resources :devices, only: [ :show, :create ]
+    resources :devices, only: [ :show, :create ] do
+      post "/register" => "devices#register"
+    end
   end
 
   get "devices/index"
