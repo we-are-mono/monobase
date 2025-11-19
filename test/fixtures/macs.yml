@@ -5,5 +5,5 @@ one:
   device: one
 
 two:
-  addr: 1
+  addr: 2
   device: two

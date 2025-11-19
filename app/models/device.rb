@@ -1,8 +1,8 @@
 class Device < ApplicationRecord
    has_many :macs
 
-   validates :qr1, presence: true
-   validates :qr2, presence: true
+   validates :qr1, presence: false
+   validates :qr2, presence: false
    validates :pcb_version, inclusion: 1..99
    validates :product_line, inclusion: (1..99).map { |d| d.to_s.rjust(2, "0") }
    validates :product_group, inclusion: %w[R S A]
@@ -29,4 +29,15 @@ class Device < ApplicationRecord
          self.serial_number = "MT-#{product_group}#{prod_line}#{hardware_revision}-#{week_year}-#{serial_digits}"
       end
    end
+
+   def self.create_device(attrs, num_macs)
+    ActiveRecord::Base.transaction do
+      @device = Device.new(attrs)
+      if @device.save
+        next_macs =  Mac.where(device_id: nil).order(:addr).limit(num_macs)
+        Mac.where(id: next_macs.select(:id)).update_all(device_id: @device.id)
+      end
+      return @device
+    end
+  end
 end

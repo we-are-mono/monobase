@@ -12,15 +12,13 @@ class Api::DevicesController < ActionController::API
   def create
     params.expect([ :num_macs ])
 
-    ActiveRecord::Base.transaction do
-      @device = Device.new(device_params)
-      if @device.save
-        next_macs =  Mac.where(device_id: nil).order(:addr).limit(params[:num_macs])
-        Mac.where(id: next_macs.select(:id)).update_all(device_id: @device.id)
-        render json: @device, status: :created
-      else
-        render json: { errors: @device.errors.full_messages }, status: :unprocessable_entity
-      end
+    @device = Device.create_device(device_params, params[:num_macs])
+    if @device && @device.id
+      puts 2
+      render json: @device, status: :created
+    else
+      puts 3
+      render json: { errors: @device.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
