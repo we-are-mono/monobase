@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_11_210222) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_19_203030) do
   create_table "devices", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "hardware_revision"
@@ -28,6 +28,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_11_210222) do
     t.datetime "created_at", null: false
     t.integer "device_id"
     t.datetime "updated_at", null: false
+    t.index ["addr"], name: "index_macs_on_addr", unique: true
     t.index ["device_id"], name: "index_macs_on_device_id"
   end
 
