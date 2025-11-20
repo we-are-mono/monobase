@@ -12,7 +12,6 @@ class Device < ApplicationRecord
    before_create :generate_serial_number
 
    def unique_qr1_and_qr2
-      puts("Looking for ", qr1, " and ", qr2)
       exists = Device.where("(qr1 = :qr1 AND qr2 = :qr2) OR (qr1 = :qr2 AND qr2 = :qr1)", qr1: qr1, qr2: qr2).count > 0
 
       if exists

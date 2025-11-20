@@ -3,7 +3,9 @@
 one:
   email_address: one@example.com
   password_digest: <%= password_digest %>
+  api_key: test_api_key_12345678901234567890
 
 two:
   email_address: two@example.com
   password_digest: <%= password_digest %>
+  api_key: test_api_key_09876543210987654321

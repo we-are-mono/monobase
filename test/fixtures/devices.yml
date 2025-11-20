@@ -5,7 +5,7 @@ one:
   qr1: LTEK01231771
   qr2: LTEK01231772
   product_group: R
-  product_line: 02
+  product_line: "02"
   hardware_revision: A
   pcb_version: 1
 
@@ -14,6 +14,6 @@ two:
   qr1: LTEK01231773
   qr2: LTEK01231774
   product_group: R
-  product_line: 03
+  product_line: "03"
   hardware_revision: B
   pcb_version: 2

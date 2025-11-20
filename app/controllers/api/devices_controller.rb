@@ -14,10 +14,8 @@ class Api::DevicesController < ActionController::API
 
     @device = Device.create_device(device_params, params[:num_macs])
     if @device && @device.id
-      puts 2
       render json: @device, status: :created
     else
-      puts 3
       render json: { errors: @device.errors.full_messages }, status: :unprocessable_entity
     end
   end
@@ -33,7 +31,7 @@ class Api::DevicesController < ActionController::API
     serial = params[:device_id]
     qr1, qr2 = params[:qr1], params[:qr2]
     @device = Device.find_by!(serial_number: serial)
-    @device.update(qr1: qr1, qr2: qr2)
+    @device.update!(qr1: qr1, qr2: qr2)
     render json: @device
   end
 
