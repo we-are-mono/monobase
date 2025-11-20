@@ -1,19 +1,19 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  serial_number: MyString
-  qr1: MyString
-  qr2: MyString
-  product_group: MyString
-  product_line: MyString
-  hardware_revision: MyString
+  serial_number: MT-R02A-4625-00001
+  qr1: LTEK01231771
+  qr2: LTEK01231772
+  product_group: R
+  product_line: 02
+  hardware_revision: A
   pcb_version: 1
 
 two:
-  serial_number: MyString
-  qr1: MyString
-  qr2: MyString
-  product_group: MyString
-  product_line: MyString
-  hardware_revision: MyString
-  pcb_version: 1
+  serial_number: MT-R03B-4625-00001
+  qr1: LTEK01231773
+  qr2: LTEK01231774
+  product_group: R
+  product_line: 03
+  hardware_revision: B
+  pcb_version: 2
