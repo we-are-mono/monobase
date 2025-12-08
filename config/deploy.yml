@@ -1,0 +1,25 @@
+# config/deploy.yml
+service: monobase
+image: ghcr.io/we-are-mono/monobase
+
+servers:
+  web:
+    hosts:
+      - nebula
+    options:
+      volume:
+        - /var/lib/monobase/storage:/rails/storage
+
+registry:
+  server: ghcr.io
+  username: depy
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+builder:
+  remote: false
+  arch: amd64
+
+env:
+  secret:
+    - SECRET_KEY_BASE
