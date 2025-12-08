@@ -32,7 +32,7 @@ class Api::DevicesController < ActionController::API
     qr1, qr2 = params[:qr1], params[:qr2]
     @device = Device.find_by!(serial_number: serial)
     @device.update!(qr1: qr1, qr2: qr2)
-    render json: @device, include: {:macs => {only: :addr}}
+    render json: @device, include: { macs: { only: :addr } }
   end
 
   private
