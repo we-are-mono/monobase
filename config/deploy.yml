@@ -2,6 +2,10 @@
 service: monobase
 image: ghcr.io/we-are-mono/monobase
 
+proxy:
+  ssl: false
+  ssl_redirect: false
+
 servers:
   web:
     hosts:
