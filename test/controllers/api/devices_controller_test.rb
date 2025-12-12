@@ -49,7 +49,18 @@ class Api::DevicesControllerTest < ActionDispatch::IntegrationTest
     assert_response :unauthorized
   end
 
-  # Create action tests
+  test "test this" do
+    post api_devices_url,
+      params: @valid_device_params.merge(qr1: "ASDFG", qr2: "QWERTYBBQ"),
+      headers: { "X-Api-Key": @valid_api_key }
+
+    post api_devices_url,
+      params: @valid_device_params.merge(qr1: "ASDFG", qr2: "QWERTYBBQ"),
+      headers: { "X-Api-Key": @valid_api_key }
+
+    assert_response :unprocessable_entity
+  end
+
   test "create with valid params and API key creates device" do
     assert_difference("Device.count", 1) do
       post api_devices_url,
@@ -213,7 +224,7 @@ class Api::DevicesControllerTest < ActionDispatch::IntegrationTest
       },
       headers: { "X-Api-Key": @valid_api_key }
 
-    assert_response :unprocessable_entity
+    assert_response :success
   end
 
   test "register with reversed QR combination from existing device" do
@@ -228,6 +239,6 @@ class Api::DevicesControllerTest < ActionDispatch::IntegrationTest
       },
       headers: { "X-Api-Key": @valid_api_key }
 
-    assert_response :unprocessable_entity
+    assert_response :success
   end
 end

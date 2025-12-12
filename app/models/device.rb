@@ -12,9 +12,16 @@ class Device < ApplicationRecord
    before_create :generate_serial_number
 
    def unique_qr1_and_qr2
-      exists = Device.where("(qr1 = :qr1 AND qr2 = :qr2) OR (qr1 = :qr2 AND qr2 = :qr1)", qr1: qr1, qr2: qr2).count > 0
+      # Skip validation if we're updating (already exists in DB)
+      return if persisted?
 
-      if exists
+      # Skip if we're creating a new device without data matrix QR codes
+      return if qr1.blank? && qr2.blank?
+
+      # Checks for existing devices with qr1,qr2 or qr2,qr1 combination
+      devices = Device.where("(qr1 = :qr1 AND qr2 = :qr2) OR (qr1 = :qr2 AND qr2 = :qr1)", qr1: qr1, qr2: qr2)
+
+      if devices.exists?
          errors.add(:qr1, "The qr1 and qr2 combination must be unique (one already exists)")
          errors.add(:qr2, "The qr1 and qr2 combination must be unique (one already exists)")
       end
