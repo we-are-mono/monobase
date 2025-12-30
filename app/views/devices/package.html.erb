@@ -1,0 +1,46 @@
+<div class="max-w-2xl mx-auto mt-8">
+  <div class="sm:flex sm:items-center mb-6">
+    <div class="sm:flex-auto">
+      <h1 class="text-base font-semibold text-gray-900 text-lg">Package Device</h1>
+    </div>
+  </div>
+
+  <%= form_with url: mark_as_packaged_devices_path, method: :post, data: { turbo: false }, class: "space-y-6 mt-8" do |form| %>
+    <div>
+      <%= form.label :serial_number, "Serial Number", class: "block text-sm font-medium text-gray-900" %>
+      <div class="mt-2">
+        <%= form.text_field :serial_number,
+            required: true,
+            autofocus: true,
+            class: "block w-full rounded-md border border-gray-300 py-1.5 px-3 text-gray-900 sm:text-sm" %>
+      </div>
+    </div>
+
+    <% if flash[:error] %>
+      <div class="rounded-md bg-red-50 p-4">
+        <div class="flex">
+          <div class="ml-3">
+            <h3 class="text-sm font-medium text-red-800"><%= flash[:error] %></h3>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <% if flash[:notice] %>
+      <div class="rounded-md bg-green-50 p-4">
+        <div class="flex">
+          <div class="ml-3">
+            <h3 class="text-sm font-medium text-green-800"><%= flash[:notice] %></h3>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="flex gap-x-3">
+      <%= form.submit "Mark as Packaged",
+          class: "rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer" %>
+      <%= link_to "Back to Devices", devices_index_path,
+          class: "rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" %>
+    </div>
+  <% end %>
+</div>

@@ -5,6 +5,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :devices, only: [] do
+    collection do
+      get :package
+      post :mark_as_packaged
+    end
+  end
+
   get "devices/index"
 
   resource :session

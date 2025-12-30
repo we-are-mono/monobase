@@ -37,6 +37,7 @@
             <% if authenticated? %>
               <div class="ml-10 flex items-baseline space-x-4">
                 <%= link_to "Devices", devices_index_path, class: "rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-800 hover:text-white transition-colors" %>
+                <%= link_to "Package", package_devices_path, class: "rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-800 hover:text-white transition-colors" %>
               </div>
             <% end %>
             </div>

@@ -2,7 +2,7 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-  config.hosts = [ "localhost", "mono-ub-dev" ]
+  config.hosts = [ "localhost", "mono-ub-dev", "192.168.122.50:3000" ]
 
   # Make code changes take effect immediately without server restart.
   config.enable_reloading = true

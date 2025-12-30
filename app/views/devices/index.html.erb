@@ -4,6 +4,10 @@
       <h1 class="text-base font-semibold text-gray-900 text-lg">Devices</h1>
     </div>
   </div>
+  <div class="mt-4 flex gap-x-4">
+    <%= link_to "All", devices_index_path(filter: 'all'), class: "px-3 py-2 text-sm #{@current_filter == 'all' ? 'font-semibold underline' : ''}" %>
+    <%= link_to "Registered", devices_index_path(filter: 'registered'), class: "px-3 py-2 text-sm #{@current_filter == 'registered' ? 'font-semibold underline' : ''}" %>
+  </div>
   <div class="mt-8 flow-root">
     <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
