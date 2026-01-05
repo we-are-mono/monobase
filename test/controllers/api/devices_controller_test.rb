@@ -133,15 +133,6 @@ class Api::DevicesControllerTest < ActionDispatch::IntegrationTest
     assert_includes JSON.parse(response.body)["errors"].join, "Hardware revision"
   end
 
-  test "create with invalid pcb_version returns unprocessable entity" do
-    post api_devices_url,
-      params: @valid_device_params.merge(pcb_version: 100),
-      headers: { "X-Api-Key": @valid_api_key }
-
-    assert_response :unprocessable_entity
-    assert_includes JSON.parse(response.body)["errors"].join, "Pcb version"
-  end
-
   # Show action tests
   test "show returns device with valid serial number" do
     device = devices(:one)

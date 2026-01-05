@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_30_095351) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_05_213035) do
   create_table "devices", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "hardware_revision"
     t.datetime "packaged_date"
-    t.integer "pcb_version"
+    t.string "pcb_version"
     t.string "product_group"
     t.string "product_line"
     t.string "qr1"

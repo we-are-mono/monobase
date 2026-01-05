@@ -3,7 +3,6 @@ class Device < ApplicationRecord
 
    validates :qr1, presence: false
    validates :qr2, presence: false
-   validates :pcb_version, inclusion: 1..99
    validates :product_line, inclusion: (1..99).map { |d| d.to_s.rjust(2, "0") }
    validates :product_group, inclusion: %w[R S A]
    validates :hardware_revision, inclusion: "A".."Z"
@@ -27,10 +26,10 @@ class Device < ApplicationRecord
       end
    end
 
-   def generate_serial_number
-      if !self.serial_number
+   def generate_serial_number(week_year = nil)
+      if !self.serial_number || week_year != nil
          serial_digits = (Device.count + 1).to_s.rjust(5, "0")
-         week_year = Date.today.strftime("%W%y")
+         week_year ||= Date.today.strftime("%W%y")
          prod_line = product_line.rjust(2, "0")
          self.serial_number = "MT-#{product_group}#{prod_line}#{hardware_revision}-#{week_year}-#{serial_digits}"
       end
