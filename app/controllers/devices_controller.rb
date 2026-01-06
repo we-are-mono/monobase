@@ -4,6 +4,8 @@ class DevicesController < ApplicationController
 
     if filter == "all"
       @devices = Device.includes(:macs).all
+    elsif filter == "packaged"
+      @devices = Device.includes(:macs).where.not(packaged_date: nil)
     else
       @devices = Device.includes(:macs).where("qr1 IS NOT NULL AND qr2 IS NOT NULL")
     end
